@@ -19,25 +19,25 @@ module.exports = (sequelize, DataTypes) => {
       console.log("Overdue");
       // FILL IN HERE
       const overDueList = await Todo.overdue();
-      for(let i=0;i<overDueList.length;i++) {
-        console.log(overDueList[i].displayableString());
-      }
+      overDueList.forEach((todoItem) =>
+        console.log(todoItem.displayableString())
+      );
       console.log("\n");
 
       console.log("Due Today");
       // FILL IN HERE
       const dueTodayList = await Todo.dueToday();
-      for(let i=0;i<dueTodayList.length;i++) {
-        console.log(dueTodayList[i].displayableString());
-      }
+      dueTodayList.forEach((todoItem) =>
+        console.log(todoItem.displayableString())
+      );
       console.log("\n");
 
       console.log("Due Later");
       // FILL IN HERE
       const dueLaterList = await Todo.dueLater();
-      for(let i=0;i<dueLaterList.length;i++) {
-        console.log(dueLaterList[i].displayableString());
-      }
+      dueLaterList.forEach((todoItem) =>
+        console.log(todoItem.displayableString())
+      );
     }
 
     static async overdue() {
@@ -84,11 +84,7 @@ module.exports = (sequelize, DataTypes) => {
 
     displayableString() {
       let checkbox = this.completed ? "[x]" : "[ ]";
-      let displDate =
-      this.dueDate === new Date().toLocaleDateString("en-CA")
-        ? ""
-        : this.dueDate;
-      return `${this.id}. ${checkbox} ${this.title} ${displDate}`.trim();
+      return `${this.id}. ${checkbox} ${this.title} ${this.dueDate}`.trim();
     }
   }
   Todo.init({
